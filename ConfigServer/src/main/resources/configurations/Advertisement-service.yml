@@ -1,0 +1,34 @@
+server:
+  port: 9001
+
+spring:
+  application:
+    name: advertisement-service
+  cloud:
+    config:
+      import: optional:configserver:http://localhost:9191/
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    queues:
+      adv-queue:
+        name: queue-advertisement
+        exchange: adv-exchange
+        routing-key: adv-routing
+  main:
+    allow-bean-definition-overriding: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+
+keycloak:
+  realm: master
+  auth-server-url: http://localhost:8181
+  ssl-required: external
+  resource: spring-boot-microservice-keycloak
+  bearer-only: true
+  public-client: true

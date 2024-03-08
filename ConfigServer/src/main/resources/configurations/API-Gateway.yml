@@ -1,0 +1,30 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/api/v1/users/*
+        - id: advertisement-service
+          uri: lb://advertisement-service
+          predicates:
+            - Path=/api/**
+        - id: management-service
+          uri: lb://management-service
+          predicates:
+            - Path=/api/**
+        - id: report-service
+          uri: lb://report-service
+          predicates:
+            - Path=/api/v1/reports/*
+
+server:
+  port: 8600

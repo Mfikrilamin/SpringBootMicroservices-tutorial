@@ -1,0 +1,27 @@
+package com.springbootmicroservices.Advertisementservice.utils;
+
+import java.io.IOException;
+
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpRequest;
+import org.springframework.http.client.ClientHttpRequestExecution;
+import org.springframework.http.client.ClientHttpRequestInterceptor;
+import org.springframework.http.client.ClientHttpResponse;
+import org.springframework.stereotype.Component;
+
+@Component
+public class UserContextInterceptor implements ClientHttpRequestInterceptor {
+
+    // Intercept outgoing request and set correlation id and auth token in
+    // UserContext
+    @Override
+    public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution)
+            throws IOException {
+        HttpHeaders headers = request.getHeaders();
+        headers.add(UserContext.CORRELATION_ID, UserContextHolder.getContext().getCorrelationId());
+        headers.add(UserContext.AUTH_TOKEN, UserContextHolder.getContext().getAccessToken());
+
+        return execution.execute(request, body);
+    }
+
+}
