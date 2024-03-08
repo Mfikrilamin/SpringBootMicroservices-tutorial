@@ -25,6 +25,7 @@
 		<module>API-Gateway</module>
 		<module>ConfigServer</module>
 		<module>Advertisement-service</module>
+		<module>Management-service</module>
 	</modules>
 
 </project>

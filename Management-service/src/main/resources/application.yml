@@ -1,0 +1,6 @@
+
+spring:
+  config:
+    import: optional:configserver:http://localhost:9191/
+  application:
+    name: management-service
