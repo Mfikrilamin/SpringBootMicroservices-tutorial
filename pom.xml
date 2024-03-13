@@ -26,6 +26,8 @@
 		<module>ConfigServer</module>
 		<module>Advertisement-service</module>
 		<module>Management-service</module>
+		<module>Report-service</module>
+		<module>User-service</module>
 	</modules>
 
 </project>

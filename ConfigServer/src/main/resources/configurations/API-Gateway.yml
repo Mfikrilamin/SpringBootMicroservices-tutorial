@@ -5,26 +5,31 @@ eureka:
 
 spring:
   application:
-    name: api-gateway
+    name: API-Gateway
   cloud:
     gateway:
       routes:
-        - id: user-service
-          uri: lb://user-service
+        - id: User-service
+          uri: lb://User-service
           predicates:
             - Path=/api/v1/users/*
-        - id: advertisement-service
-          uri: lb://advertisement-service
+        - id: Advertisement-service
+          uri: lb://Advertisement-service
           predicates:
             - Path=/api/**
-        - id: management-service
-          uri: lb://management-service
+        - id: Management-service
+          uri: lb://Management-service
           predicates:
             - Path=/api/**
-        - id: report-service
-          uri: lb://report-service
+        - id: Report-service
+          uri: lb://Report-service
           predicates:
             - Path=/api/v1/reports/*
+      # default-filters:
+      #   - name : CircuitBreaker
+      #     args:
+      #       name : fallbackCircuitBreaker
+      #       fallbackUri: foward:/fallback
 
 server:
   port: 8600

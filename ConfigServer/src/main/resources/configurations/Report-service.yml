@@ -1,12 +1,17 @@
-server:
-  port: 9001
-
 spring:
-  application:
-    name: Advertisement-service
-  cloud:
-    config:
-      import: optional:configserver:http://localhost:9191/
+  name: Report-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/springbootreport?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Turkey
+    username: springmicroserviceuser
+    password: 111111
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
   rabbitmq:
     host: localhost
     port: 5672
@@ -19,6 +24,9 @@ spring:
         routing-key: adv-routing
   main:
     allow-bean-definition-overriding: true
+
+server:
+  port: 9003
 
 eureka:
   client:
