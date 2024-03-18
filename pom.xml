@@ -21,9 +21,9 @@
 	<description>Demo project for Spring Boot</description>
 
 	<modules>
-		<module>DiscoveryServer</module>
-		<module>API-Gateway</module>
 		<module>ConfigServer</module>
+		<module>DiscoverServer</module>
+		<module>API-Gateway</module>
 		<module>Advertisement-service</module>
 		<module>Management-service</module>
 		<module>Report-service</module>
