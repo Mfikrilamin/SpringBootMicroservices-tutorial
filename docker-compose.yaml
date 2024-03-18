@@ -1,0 +1,78 @@
+version: "3.7"
+
+services:
+  rabbitmq:
+    image: "rabbitmq:3-management"
+    container_name: "rmq3"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: keycloak-baeldung-bff
+    ports:
+      - 8080:8080
+    command:
+      - start-dev
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      KC_HTTP_PORT: 8080
+      KC_HOSTNAME_URL: http://localhost:7080/auth
+      KC_HOSTNAME_ADMIN_URL: http://localhost:7080/auth
+      KC_HTTP_RELATIVE_PATH: /auth
+      #KC_LOG_LEVEL: DEBUG
+
+  configserver:
+    build: ./ConfigServer
+    ports:
+      - "9191:9191"
+    tty: true
+    restart: unless-stopped
+
+  discoverserver:
+    build: ./DiscoverServer
+    ports:
+      - "8761:8761"
+    tty: true
+    restart: unless-stopped
+
+  api-gateway:
+    build: ./API-Gateway
+    ports:
+      - "8600:8600"
+    tty: true
+    restart: unless-stopped
+
+  advertisement-service:
+    build: ./Advertisement-service
+    depends_on:
+      - rabbitmq
+    ports:
+      - "9001:9001"
+    tty: true
+    restart: unless-stopped
+
+  management-service:
+    build: ./Management-service
+    ports:
+      - "9002:9002"
+    tty: true
+    restart: unless-stopped
+
+  report-service:
+    build: ./Report-service
+    depends_on:
+      - rabbitmq
+    ports:
+      - "9003:9003"
+    tty: true
+    restart: unless-stopped
+
+  user-service:
+    build: ./User-service
+    ports:
+      - "9000:9000"
+    tty: true
+    restart: unless-stopped

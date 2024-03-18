@@ -31,6 +31,11 @@ public class RabbitMqConfig {
     private String connectionFactoryName;
 
     @Bean
+    public Queue queue() {
+        return new Queue(queueName, true);
+    }
+
+    @Bean
     DirectExchange directExchange() {
         return new DirectExchange(topicExchange);
     }

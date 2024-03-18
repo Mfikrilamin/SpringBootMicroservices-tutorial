@@ -59,6 +59,9 @@ public class SecurityConfig {
         // handling multi-tenancy
         http.oauth2ResourceServer(oauth2 -> oauth2.authenticationManagerResolver(authenticationManagerResolver));
 
+        // Enable and configure CORS
+        http.cors(cors -> cors.configurationSource(corsConfigurationSource(origins)));
+
         // State-less session (state in access token only)
         http.sessionManagement(
                 sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
